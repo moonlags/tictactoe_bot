@@ -55,25 +55,13 @@ impl TicTacToeBoard {
 
             match i {
                 4 => {
-                    if *tile == self.player_char {
-                        eval -= 3;
-                    } else {
-                        eval += 3;
-                    }
+                    eval += if *tile == self.player_char { -3 } else { 3 };
                 }
                 0 | 2 | 6 | 8 => {
-                    if *tile == self.player_char {
-                        eval -= 2;
-                    } else {
-                        eval += 2;
-                    }
+                    eval += if *tile == self.player_char { -2 } else { 2 };
                 }
                 _ => {
-                    if *tile == self.player_char {
-                        eval -= 1;
-                    } else {
-                        eval += 1;
-                    }
+                    eval += if *tile == self.player_char { -1 } else { 1 };
                 }
             }
         }
@@ -82,13 +70,7 @@ impl TicTacToeBoard {
     }
 
     fn is_moves_left(&self) -> bool {
-        for tile in self.board.iter() {
-            if *tile == ' ' {
-                return true;
-            }
-        }
-
-        false
+        self.board.iter().any(|&tile| tile == ' ')
     }
 }
 
